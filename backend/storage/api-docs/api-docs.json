@@ -1,0 +1,672 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Solicitação de Exames",
+        "description": "Documentação da API para gerenciamento de exames e pacotes.",
+        "contact": {
+            "email": "seuemail@exemplo.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Servidor local"
+        }
+    ],
+    "paths": {
+        "/api/exams": {
+            "get": {
+                "tags": [
+                    "Exames"
+                ],
+                "summary": "Lista os exames de forma paginada",
+                "operationId": "642b0a666ac1ad6bdcb984a6cb272c07",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filtro por nome do exame",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "group",
+                        "in": "query",
+                        "description": "Filtro por grupo do exame",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "laterality",
+                        "in": "query",
+                        "description": "Filtro por lateralidade",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Quantidade de itens por página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista paginada de exames",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ExamResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer"
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "config": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Exames"
+                ],
+                "summary": "Cria um novo exame",
+                "operationId": "a87bb121aeb343493a994af90221d2f6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Exame criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExamResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validação falhou"
+                    }
+                }
+            }
+        },
+        "/api/exams/{id}": {
+            "get": {
+                "tags": [
+                    "Exames"
+                ],
+                "summary": "Recupera um exame específico pelo ID",
+                "operationId": "5f696976e752ab629778f6bc6de2b128",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do exame",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Exame recuperado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExamResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Exame não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Exames"
+                ],
+                "summary": "Atualiza um exame pelo ID",
+                "operationId": "ea3f31ecf12f74a14132598fc2ac0a6c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do exame",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Exame atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExamResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Exame não encontrado"
+                    },
+                    "422": {
+                        "description": "Validação falhou"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Exames"
+                ],
+                "summary": "Remove um exame pelo ID",
+                "operationId": "949481d2d6e5af92c862aa6521c18c5e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do exame",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Exame removido com sucesso"
+                    },
+                    "404": {
+                        "description": "Exame não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/exams/pdf": {
+            "post": {
+                "tags": [
+                    "Exames"
+                ],
+                "summary": "Gera o PDF da solicitação de exames",
+                "operationId": "1c63869e5a9483667134c7adb6ec6f6d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GeneratePdfRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "PDF gerado com sucesso",
+                        "content": {
+                            "application/pdf": {}
+                        }
+                    },
+                    "422": {
+                        "description": "Nenhum exame informado"
+                    }
+                }
+            }
+        },
+        "/api/packages": {
+            "get": {
+                "tags": [
+                    "Pacotes"
+                ],
+                "summary": "Lista os pacotes com seus exames relacionados",
+                "operationId": "698ab47db6f905ef0bb499cf24264a20",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filtro pelo nome do pacote",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Número de itens por página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista paginada de pacotes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/PackageResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer"
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pacotes"
+                ],
+                "summary": "Cria um novo pacote e relaciona os exames",
+                "operationId": "0d9db7e6cef32468b49c661824bfe290",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PackageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Pacote criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PackageResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validação falhou"
+                    }
+                }
+            }
+        },
+        "/api/packages/{id}": {
+            "get": {
+                "tags": [
+                    "Pacotes"
+                ],
+                "summary": "Recupera um pacote específico pelo ID",
+                "operationId": "2ccc7c12454cd42578c4c356901f9973",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do pacote",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pacote recuperado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PackageResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Pacote não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Pacotes"
+                ],
+                "summary": "Atualiza um pacote e seus exames",
+                "operationId": "2f85f18577cd8971851d9feee3fe5a89",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do pacote",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PackageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pacote atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PackageResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Pacote não encontrado"
+                    },
+                    "422": {
+                        "description": "Validação falhou"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pacotes"
+                ],
+                "summary": "Remove um pacote pelo ID",
+                "operationId": "9692c7c0232a82ebb6c2a6474e3701db",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do pacote",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pacote removido com sucesso"
+                    },
+                    "404": {
+                        "description": "Pacote não encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ExamResource": {
+                "title": "Exam Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Exame de Sangue"
+                    },
+                    "laterality": {
+                        "description": "Lateralidade do exame",
+                        "type": "string",
+                        "example": "OD",
+                        "nullable": true
+                    },
+                    "comment": {
+                        "type": "string",
+                        "example": "Exame importante para análise metabólica"
+                    },
+                    "group": {
+                        "description": "Grupo do exame",
+                        "type": "string",
+                        "example": "LABORATORIO"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-07-14 15:30:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-07-14 15:30:00"
+                    }
+                },
+                "type": "object"
+            },
+            "PackageResource": {
+                "title": "Package Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Pacote Checkup Básico"
+                    },
+                    "observations": {
+                        "type": "string",
+                        "example": "Este pacote é indicado para avaliações gerais.",
+                        "nullable": true
+                    },
+                    "exams": {
+                        "description": "Lista de exames relacionados ao pacote",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": "Exame de Sangue"
+                                },
+                                "laterality": {
+                                    "type": "string",
+                                    "example": "OD",
+                                    "nullable": true
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "example": "Exame importante para análise metabólica"
+                                },
+                                "group": {
+                                    "type": "string",
+                                    "example": "LABORATORIO",
+                                    "nullable": true
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-07-14 15:30:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-07-14 15:30:00"
+                    }
+                },
+                "type": "object"
+            },
+            "ExamRequest": {
+                "required": [
+                    "name",
+                    "comment",
+                    "group"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Exame de Vista"
+                    },
+                    "laterality": {
+                        "type": "string",
+                        "enum": [
+                            "OD",
+                            "OE",
+                            "AO"
+                        ],
+                        "example": "OD",
+                        "nullable": true
+                    },
+                    "comment": {
+                        "type": "string",
+                        "example": "Paciente apresenta queixa visual."
+                    },
+                    "group": {
+                        "type": "string",
+                        "enum": [
+                            "GRUPO1",
+                            "GRUPO2"
+                        ],
+                        "example": "GRUPO1"
+                    }
+                },
+                "type": "object"
+            },
+            "GeneratePdfRequest": {
+                "required": [
+                    "exam_ids"
+                ],
+                "properties": {
+                    "exam_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "PackageRequest": {
+                "required": [
+                    "name",
+                    "exams"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Pacote Cardiológico"
+                    },
+                    "observations": {
+                        "type": "string",
+                        "example": "Pacote destinado a pacientes com histórico de cardiopatias",
+                        "nullable": true
+                    },
+                    "exams": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Exames",
+            "description": "Exames"
+        },
+        {
+            "name": "Pacotes",
+            "description": "Pacotes"
+        }
+    ]
+}
