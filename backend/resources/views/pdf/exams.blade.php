@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <title>Solicitação de Exames</title>
     <style>
-        /* Configurações da página para impressão */
         @page {
             margin: 40px 40px 100px 40px;
         }
@@ -19,7 +18,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Header */
         header {
             display: flex;
             justify-content: space-between;
@@ -29,7 +27,6 @@
             margin-bottom: 30px;
         }
 
-        /* Logo em texto */
         .logo-text {
             font-weight: 700;
             font-size: 20px;
@@ -39,7 +36,6 @@
             letter-spacing: 2px;
         }
 
-        /* Container das informações à direita */
         .info-container {
             text-align: right;
             min-width: 280px;
@@ -58,7 +54,6 @@
             color: #0f1e52;
         }
 
-        /* Título principal do grupo */
         h2.print-option-title {
             color: #0f1e52;
             margin-top: 40px;
@@ -70,7 +65,6 @@
             letter-spacing: 1.2px;
         }
 
-        /* Tabela estilizada */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -109,7 +103,6 @@
             color: #6b7280;
         }
 
-        /* Observação */
         p.observation {
             font-style: italic;
             font-size: 13px;
@@ -120,7 +113,6 @@
             border-left: 3px solid #0f1e52;
         }
 
-        /* Rodapé fixo */
         footer {
             position: fixed;
             bottom: 20px;
@@ -134,7 +126,6 @@
             background-color: #fff;
         }
 
-        /* Assinatura */
         .signature-block {
             margin-top: 40px;
             text-align: center;
@@ -153,7 +144,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Quebra de página */
         .page-break {
             page-break-after: always;
         }

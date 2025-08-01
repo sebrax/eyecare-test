@@ -32,7 +32,7 @@
         </v-btn>
       </div>
       <div class="d-flex align-center ml-6">
-        <span class="mr-1">Olá, Da. Sulivan</span>
+        <span class="mr-1">Olá, Dr. Sulivan</span>
         <v-icon size="18">mdi-chevron-down</v-icon>
       </div>
     </v-app-bar>

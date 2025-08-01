@@ -11,9 +11,9 @@ WORKDIR /app
 COPY package*.json ./
 
 # ----
-# 3 - Instala as dependências Node definidas no package.json
+# 3 - Instala as dependências Node definidas no package.json (incluindo devDependencies)
 # ----
-RUN npm install
+RUN npm install --production=false
 
 # ----
 # 4 - Copia todo o restante do código da aplicação para dentro do container
