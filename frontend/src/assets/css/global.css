@@ -1,0 +1,20 @@
+/* Global font override for Vuetify */
+*, body, .v-application {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Ensure all Vuetify components use Inter */
+.v-btn,
+.v-text-field,
+.v-select,
+.v-textarea,
+.v-card,
+.v-data-table,
+.v-navigation-drawer,
+.v-app-bar,
+.v-main,
+.v-container,
+.v-row,
+.v-col {
+  font-family: 'Inter', sans-serif !important;
+}

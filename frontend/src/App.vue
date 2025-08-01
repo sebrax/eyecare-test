@@ -1,40 +1,24 @@
 <template>
   <v-app>
-    <v-app-bar app color="white" flat elevation="1" class="px-4">
+    <v-app-bar app color="white" elevation="1" class="px-4">
       <v-btn icon @click="drawerLeft = !drawerLeft" v-if="isMobile">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
 
-      <v-img
-        :src="require('@/assets/logo.png')"
-        alt="Logo"
-        max-height="110"
-        max-width="110"
-        class="mr-3"
-        contain
-      />
+      <AppLogo class="mr-10" />
+
       <div class="d-flex align-center mr-6">
-        <span class="font-weight-medium text-body-1"
+        <span class="font-weight-medium text-body-1 grey--text text--darken-1"
           >Clínica Eyecare Health</span
         >
         <v-icon size="18" class="ml-1">mdi-chevron-down</v-icon>
       </div>
       <v-spacer />
-      <div class="d-flex align-center">
-        <v-btn
-          v-for="(icon, i) in headerIcons"
-          :key="`header-icon-${i}`"
-          icon
-          variant="text"
-          class="mx-1"
-        >
-          <v-icon>{{ icon }}</v-icon>
-        </v-btn>
-      </div>
-      <div class="d-flex align-center ml-6">
-        <span class="mr-1">Olá, Dr. Sulivan</span>
+      <v-btn text class="grey--text text--darken-1">
+        <span class="avatar primary lighten-2">SB</span>
+        <span class="mr-1 text-capitalize">Olá, Dr. Sulivan</span>
         <v-icon size="18">mdi-chevron-down</v-icon>
-      </div>
+      </v-btn>
     </v-app-bar>
 
     <SideNavigationDrawer
@@ -51,18 +35,6 @@
       </template>
     </SideNavigationDrawer>
 
-    <SideNavigationDrawer
-      :icons="rightIcons"
-      right
-      v-model="drawerRight"
-      :permanent="!isMobile"
-      :temporary="isMobile"
-      mini-variant
-      :width="56"
-      class="sidebar-right"
-      icon-color="black"
-    />
-
     <v-main>
       <v-container class="mt-4">
         <router-view />
@@ -73,16 +45,17 @@
 
 <script>
 import SideNavigationDrawer from "@/components/Partials/SideNavigationDrawer.vue";
+import AppLogo from "@/components/Layout/AppLogo.vue";
 
 export default {
   name: "App",
   components: {
     SideNavigationDrawer,
+    AppLogo,
   },
   data() {
     return {
       drawerLeft: false,
-      drawerRight: false,
       icons: [
         "mdi-file-document",
         "mdi-package-variant",
@@ -99,26 +72,6 @@ export default {
         "mdi-notebook",
         "mdi-shield",
       ],
-      rightIcons: [
-        "mdi-home",
-        "mdi-star",
-        "mdi-folder",
-        "mdi-settings",
-        "mdi-information",
-        "mdi-account-circle",
-        "mdi-logout",
-        "mdi-lock",
-      ],
-      headerIcons: [
-        "mdi-file-document",
-        "mdi-package-variant",
-        "mdi-send",
-        "mdi-calendar",
-        "mdi-chart-line",
-        "mdi-account",
-        "mdi-email",
-        "mdi-bell",
-      ],
     };
   },
   computed: {
@@ -130,26 +83,28 @@ export default {
     isMobile(val) {
       if (!val) {
         this.drawerLeft = true;
-        this.drawerRight = true;
       } else {
         this.drawerLeft = false;
-        this.drawerRight = false;
       }
     },
   },
   mounted() {
     if (this.isMobile) {
       this.drawerLeft = false;
-      this.drawerRight = false;
     } else {
       this.drawerLeft = true;
-      this.drawerRight = true;
     }
   },
 };
 </script>
 
 <style scoped>
+.avatar {
+  font-size: 1rem;
+  padding: 7px;
+  border-radius: 100px;
+  color: white;
+}
 .border-right {
   border-right: 1px solid #e0e0e0;
 }
